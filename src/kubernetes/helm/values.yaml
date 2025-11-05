@@ -5,7 +5,7 @@ global:
 
 # Image pull secrets
 imagePullSecrets:
-  dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaGNyLmlvIjogewoJCQkiYXV0aCI6
+  dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJSV3RoZEdWeWFXNWhRMmgxZG1GcmFHbHVZVHBuYUhCZldtUnVOM1p6YUZoTlVHRm9OV1Z6T0c1SmJtbFJiV2xJYmpSbldEbFVNVmxGTWxKVCJ9fX0=
 # Database configuration
 database:
   host: postgres
@@ -33,8 +33,8 @@ database:
 monolith:
   enabled: true
   image:
-    repository: ghcr.io/db-exp/cinemaabysstest/monolith
-    tag: latest
+    repository: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/monolith
+    tag: sha-afadfac
     pullPolicy: Always
   replicas: 1
   resources:
@@ -51,10 +51,12 @@ monolith:
 
 # Proxy service configuration
 proxyService:
+  externalPort: 8000
+  internalPort: 8000
   enabled: true
   image:
-    repository: ghcr.io/db-exp/cinemaabysstest/proxy-service
-    tag: latest
+    repository: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/proxy-service
+    tag: sha-7b7fc36
     pullPolicy: Always
   replicas: 1
   resources:
@@ -73,8 +75,8 @@ proxyService:
 moviesService:
   enabled: true
   image:
-    repository: ghcr.io/db-exp/cinemaabysstest/movies-service
-    tag: latest
+    repository: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/movies-service
+    tag: sha-7b7fc36
     pullPolicy: Always
   replicas: 1
   resources:
@@ -91,10 +93,12 @@ moviesService:
 
 # Events service configuration
 eventsService:
+  externalPort: 8082
+  internalPort: 8082
   enabled: true
   image:
-    repository: ghcr.io/db-exp/cinemaabysstest/events-service
-    tag: latest
+    repository: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/events-service
+    tag: sha-7b7fc36
     pullPolicy: Always
   replicas: 1
   resources:

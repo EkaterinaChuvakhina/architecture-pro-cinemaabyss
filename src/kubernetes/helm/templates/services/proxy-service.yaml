@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: proxy-service
-        ..... тут
+        image: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/proxy-service:sha-7b7fc36
 ---
 apiVersion: v1
 kind: Service
@@ -38,5 +38,9 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   selector:
-    ... и тут
+    app: proxy-service
+  ports:
+    - port: {{ .Values.proxyService.externalPort }}
+      targetPort: {{ .Values.proxyService.internalPort }}
+  type: ClusterIP
 {{- end }}

@@ -1,25 +1,23 @@
 @startuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-title Container Diagram for CinemaAbyss To-Be Architecture
-
 Person(user, "User", "End user of the CinemaAbyss platform")
 
 System_Boundary(cinema_abyss, "CinemaAbyss System") {
     Container(api_gateway, "API Gateway", "Go/HTTP Server", "Single entry point for all external requests, routes to appropriate microservices")
 
-    Container(user_service, "User Service", "Go Microservice", "Handles user management: registration, profiles, authentication")
+    Container(user_service, "User Service", "Go Microservice", "Manages the lifecycle of users")
 
-    Container(movie_service, "Movie Service", "Go Microservice", "Manages movie catalog: CRUD operations for movies, genres, ratings")
+    Container(movie_service, "Movie Service", "Go Microservice", "Manages movie catalog")
 
-    Container(payment_service, "Payment Service", "Go Microservice", "Processes payments: records transactions, handles amounts and timestamps")
+    Container(payment_service, "Payment Service", "Go Microservice", "Processing user payments")
 
-    Container(subscription_service, "Subscription Service", "Go Microservice", "Manages subscriptions: plans, start/end dates, user associations")
+    Container(subscription_service, "Subscription Service", "Go Microservice", "User subscription management")
 
     ContainerDb(shared_db, "Shared Database", "PostgreSQL", "Central data store for all domains (users, movies, payments, subscriptions)")
 }
 
-Rel(user, api_gateway, "Interacts with (e.g., via Web/Mobile App)", "HTTPS/JSON")
+Rel(user, api_gateway, "Interact via Web/Mobile App", "HTTPS/JSON")
 
 Rel(api_gateway, user_service, "Routes requests to", "HTTP/JSON")
 Rel(api_gateway, movie_service, "Routes requests to", "HTTP/JSON")

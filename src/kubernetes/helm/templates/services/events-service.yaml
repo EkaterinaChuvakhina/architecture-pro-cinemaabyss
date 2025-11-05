@@ -25,7 +25,13 @@ spec:
     spec:
       containers:
       - name: events-service
-       .... тут
+        image: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/events-service:sha-sha-7b7fc36
+        imagePullPolicy: Always
+        env:
+          - name: KAFKA_BROKERS
+            value: kafka:9092
+          - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB
+            value: "DEBUG"
 ---
 apiVersion: v1
 kind: Service
@@ -37,5 +43,10 @@ metadata:
     app.kubernetes.io/name: {{ include "cinemaabyss.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
- ........ и тут
+  selector:
+    app: events-service
+  ports:
+    - port: {{ .Values.eventsService.externalPort }}
+      targetPort: {{ .Values.eventsService.internalPort }}
+  type: ClusterIP
 {{- end }}

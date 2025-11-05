@@ -26,12 +26,12 @@ spring:
                 - Path=/api/users/**
               filters:
                 - RewritePath=/api/users/(?<segment>.*), /${segment}
-            - id: event_service
+            - id: events_service
               uri: ${EVENTS_SERVICE_URL:http://localhost:8082}
               predicates:
-                - Path=/api/event/**
-              filters:
-                - RewritePath=/api/event/(?<segment>.*), /${segment}
+                - Path=/api/events/**
+#              filters:
+#                - RewritePath=/api/events/(?<segment>.*), /${segment}
 
 server:
   port: 8000
