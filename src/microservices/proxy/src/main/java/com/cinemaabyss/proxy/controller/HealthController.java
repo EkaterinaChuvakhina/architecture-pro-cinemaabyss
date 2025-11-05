@@ -10,6 +10,7 @@ import java.util.Map;
 @RestController("/api")
 public class HealthController {
 
+
     @GetMapping("/health")
     public Mono<Map<String, Boolean>> health() {
         Map<String, Boolean> response = new HashMap<>();
