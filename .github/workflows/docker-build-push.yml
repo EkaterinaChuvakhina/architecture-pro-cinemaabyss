@@ -48,7 +48,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha,format=short
             type=ref,event=branch
-            latest
+            type=raw,value=latest
 
       - name: Build and push Monolith Docker image
         uses: docker/build-push-action@v4
@@ -71,7 +71,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha,format=short
             type=ref,event=branch
-            latest
+            type=raw,value=latest
 
       - name: Build and push Movies Service Docker image
         uses: docker/build-push-action@v4
@@ -94,7 +94,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha,format=short
             type=ref,event=branch
-            latest
+            type=raw,value=latest
 
       - name: Build and push Events Service Docker image
         uses: docker/build-push-action@v4
@@ -117,7 +117,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha,format=short
             type=ref,event=branch
-            latest
+            type=raw,value=latest
 
       - name: Build and push Proxy Service Docker image
         uses: docker/build-push-action@v4
