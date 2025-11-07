@@ -34,7 +34,7 @@ monolith:
   enabled: true
   image:
     repository: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/monolith
-    tag: sha-afadfac
+    tag: latest
     pullPolicy: Always
   replicas: 1
   resources:
@@ -56,7 +56,7 @@ proxyService:
   enabled: true
   image:
     repository: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/proxy-service
-    tag: sha-7b7fc36
+    tag: latest
     pullPolicy: Always
   replicas: 1
   resources:
@@ -70,13 +70,24 @@ proxyService:
     port: 80
     targetPort: 8000
     type: ClusterIP
+  env:
+    - name: MONOLITH_URL
+      value: "http://monolith:8080"
+    - name: MOVIES_SERVICE_URL
+      value: "http://movies-service:8081"
+    - name: EVENTS_SERVICE_URL
+      value: "http://events-service:8082"
+    - name: MOVIES_SERVICE_PERCENT
+      value: "50"
+    - name: MOVIES_MONOLITH_PERCENT
+      value: "50"
 
 # Movies service configuration
 moviesService:
   enabled: true
   image:
     repository: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/movies-service
-    tag: sha-7b7fc36
+    tag: latest
     pullPolicy: Always
   replicas: 1
   resources:
@@ -98,7 +109,7 @@ eventsService:
   enabled: true
   image:
     repository: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/events-service
-    tag: sha-7b7fc36
+    tag: latest
     pullPolicy: Always
   replicas: 1
   resources:
@@ -112,6 +123,9 @@ eventsService:
     port: 8082
     targetPort: 8082
     type: ClusterIP
+  env:
+    - name: KAFKA_BROKERS
+      value: kafka:9092
 
 # Kafka configuration
 kafka:
@@ -176,14 +190,4 @@ ingress:
         - path: /
           pathType: Prefix
           service: proxy-service
-          port: 80
-        - path: /api/events
-          pathType: Prefix
-          service: events-service
-          port: 8082
-
-# Application configuration
-config:
-  # Strangler Fig configuration
-  gradualMigration: "true"
-  moviesMigrationPercent: "100"
+          port: 8000

@@ -22,13 +22,11 @@ spec:
     spec:
       containers:
         - name: events-service
-          image: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/events-service:sha-7b7fc36
+          image: ghcr.io/ekaterinachuvakhina/architecture-pro-cinemaabyss/events-service:latest
           imagePullPolicy: Always
           env:
             - name: KAFKA_BROKERS
               value: kafka:9092
-            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB
-              value: "DEBUG"
 
 ---
 apiVersion: v1
